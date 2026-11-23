@@ -8,7 +8,7 @@ import {
   UsersRound, ReceiptText, Headset
 } from "lucide-react";
 import "./style.css";
-
+ 
 const profile = {
   name: "Vijay Pandey",
   role: "Senior Backend & Full-Stack Engineer",
