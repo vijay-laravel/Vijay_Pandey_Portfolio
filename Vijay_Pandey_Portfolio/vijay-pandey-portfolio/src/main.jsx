@@ -1,170 +1,3 @@
-import React, { useState } from "react";
-import { createRoot } from "react-dom/client";
-import { motion } from "framer-motion";
-import {
-  ArrowDown, ArrowUpRight, Github, Linkedin, Mail, Phone, MapPin,
-  Menu, X, Code2, Database, Workflow, Truck, Braces, GraduationCap,
-  ExternalLink, Download, Terminal, Layers3, Cpu, Sparkles,
-  UsersRound, ReceiptText, Headset
-} from "lucide-react";
-import "./style.css";
- 
-const profile = {
-  name: "Vijay Pandey",
-  role: "Senior Backend & Full-Stack Engineer",
-  location: "B82, fourth floor, Pocket B, rohini sec 1, 90, Deenbandhu Chotooram Marg, Pocket B, Sector 1, Rohini, Delhi, 110085, India",
-  phone: "+91 9889835795",
-  email: "vp.vijaypandey123@gmail.com",
-  linkedin: "https://linkedin.com/in/vijay-pandey-78346b104/",
-};
-
-const skills = [
-  { title: "Backend", items: ["PHP", "Laravel", "CodeIgniter", "REST APIs", "Webhooks", "Python (Basic)"], icon: Braces },
-  { title: "Frontend", items: ["JavaScript", "React JS", "jQuery", "AJAX", "HTML5", "CSS", "Bootstrap"], icon: Code2 },
-  { title: "Database & Optimization", items: ["MySQL", "Query Optimization", "Redis"], icon: Database },
-  { title: "Integrations & Tools", items: ["Payment APIs", "Courier APIs", "OAuth / JWT", "Postman", "Git", "Composer", "VS Code", "Docker (Learning)"], icon: Workflow },
-];
-
-const experience = [
-  {
-    company: "Truxcargo", role: "PHP Developer", period: "Oct 2025 — Present",
-    summary: "Building and maintaining logistics and shipping workflows for a B2B shipping platform.",
-    points: [
-      "Develop CodeIgniter-based order creation, rate calculation, charge modifiers and vendor-selection workflows.",
-      "Integrate courier booking, tracking, pickup and NDR APIs; build billing, CSV import/export and admin features.",
-      "Investigate production issues, validate integrations and improve complex backend business logic."
-    ],
-    project: "TruxCargo Whitelabel", url: "https://truxcargo.co.in/whitelabel/", icon: Truck
-  },
-  {
-    company: "Mahindra First Choice (TGAYS Tech Pvt. Ltd.)", role: "PHP Developer", period: "Sep 2024 — Jun 2025",
-    summary: "Worked on backend features for a certified used-car buying and selling platform.",
-    points: [
-      "Developed Laravel and MySQL backend features.",
-      "Worked on API-driven business flows and integration-related functionality supporting vehicle commerce."
-    ],
-    project: "Vehicle commerce platform", url: "https://aiv3portal.ibbtrade.com/", icon: Layers3
-  },
-  {
-    company: "SISL Infotech Pvt. Ltd.", role: "PHP Developer", period: "Jan 2023 — May 2024",
-    summary: "Contributed to backend development for TalentEdge, an eLearning platform.",
-    points: [
-      "Built and maintained Laravel backend functionality and API integrations.",
-      "Implemented application business logic and database-backed features."
-    ],
-    project: "TalentEdge", url: "https://talentedge.com/", icon: Code2
-  },
-  {
-    company: "Nimbus Post Pvt. Ltd.", role: "PHP Developer", period: "Jan 2022 — Jan 2023",
-    summary: "Worked on shipping and courier aggregation modules for a PAN-India logistics platform.",
-    points: [
-      "Developed CodeIgniter shipping and courier aggregation functionality.",
-      "Supported order-processing workflows and integrations with external delivery services."
-    ],
-    project: "NimbusPost", url: "https://ship.nimbuspost.com/", icon: Truck
-  },
-  {
-    company: "Pinnacle", role: "Core PHP Developer", period: "Nov 2020 — Nov 2021",
-    summary: "Developed backend functionality for an online SSC examination preparation platform.",
-    points: ["Maintained PHP application features, data handling and issue resolution."],
-    project: "SSC CGL Pinnacle", url: "https://ssccglpinnacle.com/", icon: GraduationCap
-  },
-  {
-    company: "72 Networks", role: "PHP Developer", period: "Sep 2019 — Aug 2020",
-    summary: "Contributed to an aggregator platform serving OEMs and microfinance institutions.",
-    points: ["Implemented and maintained PHP-backed application features and database workflows."],
-    project: "72 Networks", url: "https://www.72networks.com/", icon: Workflow
-  },
-  {
-    company: "Smaarambh Techno Management Pvt. Ltd.", role: "PHP Developer", period: "Mar 2019 — Aug 2019",
-    summary: "Worked on PHP application development and maintenance for customer-facing web products.",
-    points: ["Contributed to product-catalog and location-restricted deal workflows."],
-    project: "PCT Members", url: "https://pctmembers.com/", icon: Layers3
-  },
-];
-
-const capabilities = [
-  ["Logistics workflows", "Rate engines, volumetric weight calculations, shipping orders, NDR, shipment tracking and invoice generation."],
-  ["Third-party integrations", "Courier APIs, authentication, API error handling, CSV imports/exports and external service connectivity."],
-  ["Database & delivery", "MySQL query optimization, backend debugging, performance troubleshooting, Git collaboration and production support."]
-];
-
-const logisticsModules = [
-  {
-    title: "CRM & Customer Management",
-    icon: UsersRound,
-    items: ["Customer management", "Sales and CS person assignment", "Customer-specific rate modifiers", "Customer support and communication", "User roles and permissions"]
-  },
-  {
-    title: "Billing & Invoice Management",
-    icon: ReceiptText,
-    items: ["B2B invoice management", "Single and multiple customer invoices", "PDF invoice generation", "Due dates and customer notes", "Payment and outstanding tracking", "Profit and loss reports"]
-  },
-  {
-    title: "NDR & Support Management",
-    icon: Headset,
-    items: ["NDR status management", "Customer comments and attachments", "Support team replies", "CS person assignment", "Export and reporting", "Email notifications"]
-  }
-];
-
-function Reveal({ children, delay = 0, className = "" }) {
-  return <motion.div className={className} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.6, delay, ease: "easeOut" }}>{children}</motion.div>;
-}
-
-function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const nav = ["About", "Skills", "Experience", "Logistics", "Focus", "Contact"];
-  const closeMenu = () => setMenuOpen(false);
-
-  return (
-    <div className="site-shell">
-      <div className="noise" />
-      <header className="topbar">
-        <a className="brand" href="#home" onClick={closeMenu}><span className="brand-mark">VP</span><span>VIJAY<span className="brand-dot">.</span></span></a>
-        <button className="menu-toggle" aria-label="Toggle navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
-        <nav className={menuOpen ? "nav-links open" : "nav-links"}>
-          {nav.map(item => <a key={item} href={`#${item.toLowerCase()}`} onClick={closeMenu}>{item}</a>)}
-          <a className="nav-cta" href={`mailto:${profile.email}`}>Let's talk <ArrowUpRight size={15} /></a>
-        </nav>
-      </header>
-
-      <main>
-        <section className="hero section-wrap" id="home">
-          <div className="hero-grid">
-            <div className="hero-copy">
-              <Reveal><div className="eyebrow"><span className="pulse" /> OPEN TO MEANINGFUL OPPORTUNITIES <span className="eyebrow-line" /></div></Reveal>
-              <Reveal delay={0.08}><h1>Building digital<br /><span className="gradient-text">systems that</span><br />move business.</h1></Reveal>
-              <Reveal delay={0.16}><p className="hero-lede">I'm <strong>Vijay Pandey</strong> — a backend-focused engineer crafting reliable web applications, logistics workflows and API-driven products.</p></Reveal>
-              <Reveal delay={0.24}><div className="hero-actions"><a className="button button-primary" href="#experience">Explore my work <ArrowDown size={16} /></a><a className="button button-ghost" href={`mailto:${profile.email}`}>Get in touch <ArrowUpRight size={16} /></a></div></Reveal>
-              <Reveal delay={0.3}><div className="hero-meta"><span><MapPin size={14} /> {profile.location}</span><span className="meta-separator" /><span><Terminal size={14} /> PHP · Laravel · APIs · React</span></div></Reveal>
-            </div>
-            <Reveal delay={0.2} className="hero-art-wrap">
-              <div className="hero-art">
-                <div className="orbit orbit-one" /><div className="orbit orbit-two" />
-                <div className="art-glow" />
-                <div className="code-window">
-                  <div className="window-head"><div className="window-dots"><i /><i /><i /></div><span>developer.php</span><span className="window-lock">●</span></div>
-                  <div className="code-body">
-                    <div><span className="ln">01</span><span className="code-purple">class</span> <span className="code-blue">Engineer</span> <span className="code-muted">{"{"}</span></div>
-                    <div><span className="ln">02</span>  <span className="code-purple">public</span> <span className="code-blue">$focus</span> = [</div>
-                    <div><span className="ln">03</span>    <span className="code-green">'backend'</span>,</div>
-                    <div><span className="ln">04</span>    <span className="code-green">'integrations'</span>,</div>
-                    <div><span className="ln">05</span>    <span className="code-green">'problem-solving'</span></div>
-                    <div><span className="ln">06</span>  ];</div>
-                    <div><span className="ln">07</span>  <span className="code-purple">public function</span> <span className="code-yellow">build</span>() {"{"}</div>
-                    <div><span className="ln">08</span>    <span className="code-purple">return</span> <span className="code-green">'impact'</span>;</div>
-                    <div><span className="ln">09</span>  {"}"}</div>
-                    <div><span className="ln">10</span><span className="code-muted">{"}"}</span></div>
-                    <div className="cursor-line"><span className="ln">11</span><span className="cursor" /></div>
-                  </div>
-                  <div className="window-foot"><span><span className="status-dot" /> SYSTEMS THINKING</span><span>UTF-8</span></div>
-                </div>
-                <div className="floating-chip chip-top"><Code2 size={15} /> Clean code</div>
-                <div className="floating-chip chip-bottom"><Cpu size={15} /> Built to scale</div>
-                <div className="art-index">01 / ENGINEERING</div>
-              </div>
-            </Reveal>
-          </div>
           <div className="hero-bottom"><span>SCROLL TO EXPLORE</span><div className="scroll-line" /><span className="hero-bottom-right">PORTFOLIO — 2026</span></div>
         </section>
 
@@ -172,10 +5,24 @@ function App() {
           <Reveal><div className="section-kicker">01 / ABOUT ME</div></Reveal>
           <div className="intro-grid">
             <Reveal><h2>Backend first.<br /><span className="muted-heading">Product minded.</span></h2></Reveal>
-            <Reveal delay={0.1}><div className="intro-content"><p className="intro-lead">I turn complex business requirements into dependable software.</p><p>My experience spans logistics, automotive commerce, eLearning and B2B platforms. I work primarily with PHP, Laravel, CodeIgniter and MySQL, with a strong focus on APIs, business workflows, integrations and production problem-solving.</p><p>I'm also expanding my full-stack toolkit with React and foundational Python.</p><div className="inline-links"><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={14} /></a><a href={`mailto:${profile.email}`}>Email me <ArrowUpRight size={14} /></a></div></div></Reveal>
+            <Reveal delay={0.1}>
+              <div className="intro-content">
+                <p className="intro-lead">I turn complex business requirements into dependable software.</p>
+                <p>My experience spans logistics, automotive commerce, eLearning and B2B platforms. I work primarily with PHP, Laravel, CodeIgniter and MySQL, with a strong focus on APIs, business workflows, integrations and production problem-solving.</p>
+                <p>I'm also expanding my full-stack toolkit with React and foundational Python, and I’m open to both full-time opportunities and freelance development work.</p>
+                <div className="inline-links">
+                  <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={14} /></a>
+                  <a href={profile.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14} /></a>
+                  <a href={`mailto:${profile.email}`}>Email me <ArrowUpRight size={14} /></a>
+                </div>
+              </div>
+            </Reveal>
           </div>
           <div className="stats-row">
-            <div><strong>PHP</strong><span>Core strength</span></div><div><strong>API</strong><span>Integrations</span></div><div><strong>SQL</strong><span>Data & performance</span></div><div><strong>React</strong><span>Growing expertise</span></div>
+            <div><strong>5+ Years</strong><span>Development experience</span></div>
+            <div><strong>PHP</strong><span>Core strength</span></div>
+            <div><strong>API</strong><span>Integrations</span></div>
+            <div><strong>React</strong><span>Full-stack toolkit</span></div>
           </div>
         </section>
 
@@ -199,8 +46,28 @@ function App() {
           </div>
         </section>
 
+        <section className="projects-section section-wrap" id="projects">
+          <Reveal><div className="section-kicker">04 / SELECTED WORK</div><div className="section-heading"><h2>Projects & case studies<span className="accent">.</span></h2><p>Selected platform work and functional areas I've contributed to. Modules shown here belong to the same logistics platform.</p></div></Reveal>
+          <div className="projects-grid">
+            {projects.map((project, i) => {
+              const Icon = project.icon;
+              return <Reveal key={project.number} delay={i * 0.07}>
+                <article className="project-card">
+                  <div className="project-top"><span className="project-icon"><Icon size={21} /></span><span className="card-index">{project.number} / CASE STUDY</span></div>
+                  <span className="project-type">{project.type}</span>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <ul>{project.points.map(point => <li key={point}>{point}</li>)}</ul>
+                  <div className="project-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
+                  <a className="project-card-link" href={project.link} target="_blank" rel="noreferrer">View platform <ExternalLink size={14} /></a>
+                </article>
+              </Reveal>;
+            })}
+          </div>
+        </section>
+
         <section className="logistics-section section-wrap" id="logistics">
-          <Reveal><div className="section-kicker">04 / LOGISTICS PLATFORM</div><div className="section-heading"><h2>Connected customer operations<span className="accent">.</span></h2><p>Customer management, billing and support workflows built around the needs of a B2B logistics platform.</p></div></Reveal>
+          <Reveal><div className="section-kicker">05 / PLATFORM MODULES</div><div className="section-heading"><h2>Connected customer operations<span className="accent">.</span></h2><p>Examples of customer, billing and support workflows within the logistics platform.</p></div></Reveal>
           <div className="logistics-grid">
             {logisticsModules.map((module, i) => {
               const Icon = module.icon;
@@ -209,8 +76,18 @@ function App() {
           </div>
         </section>
 
+        <section className="services-section section-wrap" id="services">
+          <Reveal><div className="section-kicker">06 / FREELANCE SERVICES</div><div className="section-heading"><h2>How I can help<span className="accent">.</span></h2><p>Practical development support for businesses, teams and growing products.</p></div></Reveal>
+          <div className="services-grid">
+            {services.map((service, i) => {
+              const Icon = service.icon;
+              return <Reveal key={service.title} delay={i * 0.07}><article className="service-card"><span className="service-icon"><Icon size={21} /></span><h3>{service.title}</h3><p>{service.text}</p><a href={`mailto:${profile.email}?subject=${encodeURIComponent("Freelance project enquiry")}`}>Discuss a project <ArrowUpRight size={14} /></a></article></Reveal>;
+            })}
+          </div>
+        </section>
+
         <section className="focus-section section-wrap" id="focus">
-          <Reveal><div className="section-kicker">05 / WHAT I BRING</div><div className="section-heading"><h2>Beyond the framework<span className="accent">.</span></h2><p>Engineering is more than writing code. It's understanding how the whole system works.</p></div></Reveal>
+          <Reveal><div className="section-kicker">07 / WHAT I BRING</div><div className="section-heading"><h2>Beyond the framework<span className="accent">.</span></h2><p>Engineering is more than writing code. It's understanding how the whole system works.</p></div></Reveal>
           <div className="capability-grid">
             {capabilities.map(([title, desc], i) => <Reveal key={title} delay={i * 0.08}><article className="capability-card"><span className="cap-number">0{i + 1}</span><h3>{title}</h3><p>{desc}</p></article></Reveal>)}
           </div>
@@ -218,11 +95,30 @@ function App() {
         </section>
 
         <section className="contact-section section-wrap" id="contact">
-          <Reveal><div className="section-kicker">06 / NEXT STEP</div><div className="contact-panel"><div className="contact-orb" /><div className="contact-content"><span className="contact-label"><Sparkles size={14} /> HAVE A PROJECT OR ROLE IN MIND?</span><h2>Let's build<br /><span className="gradient-text">something useful.</span></h2><p>For backend engineering, Laravel development, API integrations or full-stack opportunities, I'd be glad to connect.</p><a className="button button-primary" href={`mailto:${profile.email}`}>Start a conversation <ArrowUpRight size={16} /></a></div><div className="contact-details"><a href={`mailto:${profile.email}`}><Mail size={17} /><span>{profile.email}</span><ArrowUpRight size={14} /></a><a href={`tel:${profile.phone.replaceAll(" ", "")}`}><Phone size={17} /><span>{profile.phone}</span><ArrowUpRight size={14} /></a><a href={profile.linkedin} target="_blank" rel="noreferrer"><Linkedin size={17} /><span>LinkedIn profile</span><ArrowUpRight size={14} /></a><div className="contact-location"><MapPin size={17} /><span>{profile.location}</span></div></div></div></Reveal>
+          <Reveal><div className="section-kicker">08 / NEXT STEP</div><div className="contact-panel">
+            <div className="contact-orb" />
+            <div className="contact-content">
+              <span className="contact-label"><Sparkles size={14} /> HAVE A PROJECT OR ROLE IN MIND?</span>
+              <h2>Let's build<br /><span className="gradient-text">something useful.</span></h2>
+              <p>For backend engineering roles, Laravel development, API integrations, bug fixing or freelance projects, I'd be glad to connect.</p>
+              <a className="button button-primary" href={`mailto:${profile.email}`}>Start a conversation <ArrowUpRight size={16} /></a>
+            </div>
+            <div className="contact-details">
+              <a href={`mailto:${profile.email}`}><Mail size={17} /><span>{profile.email}</span><ArrowUpRight size={14} /></a>
+              <a href={`tel:${profile.phone.replaceAll(" ", "")}`}><Phone size={17} /><span>{profile.phone}</span><ArrowUpRight size={14} /></a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer"><Linkedin size={17} /><span>LinkedIn profile</span><ArrowUpRight size={14} /></a>
+              <a href={profile.github} target="_blank" rel="noreferrer"><Github size={17} /><span>GitHub profile</span><ArrowUpRight size={14} /></a>
+              <div className="contact-location"><MapPin size={17} /><span>{profile.location}</span></div>
+            </div>
+          </div></Reveal>
         </section>
       </main>
 
-      <footer className="footer section-wrap"><a className="brand" href="#home"><span className="brand-mark">VP</span><span>VIJAY<span className="brand-dot">.</span></span></a><span>Designed & built with care · © {new Date().getFullYear()} Vijay Pandey</span><a href="#home" className="back-top">BACK TO TOP ↑</a></footer>
+      <footer className="footer section-wrap">
+        <a className="brand" href="#home"><span className="brand-mark">VP</span><span>VIJAY<span className="brand-dot">.</span></span></a>
+        <span>Designed & built with care · © {new Date().getFullYear()} Vijay Pandey</span>
+        <a href="#home" className="back-top">BACK TO TOP ↑</a>
+      </footer>
     </div>
   );
 }
