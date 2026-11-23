@@ -11,9 +11,9 @@ import "./style.css";
 const profile = {
   name: "Vijay Pandey",
   role: "Senior Backend & Full-Stack Engineer",
-  location: "Gurgaon, Haryana, India",
+  location: "B82, fourth floor, Pocket B, rohini sec 1, 90, Deenbandhu Chotooram Marg, Pocket B, Sector 1, Rohini, Delhi, 110085, India",
   phone: "+91 9889835795",
-  email: "pvijay2125@gmail.com",
+  email: "vp.vijaypandey123@gmail.com",
   linkedin: "https://linkedin.com/in/vijay-pandey-78346b104/",
 };
 
