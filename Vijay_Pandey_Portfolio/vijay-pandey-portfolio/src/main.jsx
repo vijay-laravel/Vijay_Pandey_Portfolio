@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import {
   ArrowDown, ArrowUpRight, Github, Linkedin, Mail, Phone, MapPin,
   Menu, X, Code2, Database, Workflow, Truck, Braces, GraduationCap,
-  ExternalLink, Download, Terminal, Layers3, Cpu, Sparkles
+  ExternalLink, Download, Terminal, Layers3, Cpu, Sparkles,
+  UsersRound, ReceiptText, Headset
 } from "lucide-react";
 import "./style.css";
 
@@ -88,13 +89,31 @@ const capabilities = [
   ["Database & delivery", "MySQL query optimization, backend debugging, performance troubleshooting, Git collaboration and production support."]
 ];
 
+const logisticsModules = [
+  {
+    title: "CRM & Customer Management",
+    icon: UsersRound,
+    items: ["Customer management", "Sales and CS person assignment", "Customer-specific rate modifiers", "Customer support and communication", "User roles and permissions"]
+  },
+  {
+    title: "Billing & Invoice Management",
+    icon: ReceiptText,
+    items: ["B2B invoice management", "Single and multiple customer invoices", "PDF invoice generation", "Due dates and customer notes", "Payment and outstanding tracking", "Profit and loss reports"]
+  },
+  {
+    title: "NDR & Support Management",
+    icon: Headset,
+    items: ["NDR status management", "Customer comments and attachments", "Support team replies", "CS person assignment", "Export and reporting", "Email notifications"]
+  }
+];
+
 function Reveal({ children, delay = 0, className = "" }) {
   return <motion.div className={className} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.6, delay, ease: "easeOut" }}>{children}</motion.div>;
 }
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const nav = ["About", "Skills", "Experience", "Focus", "Contact"];
+  const nav = ["About", "Skills", "Experience", "Logistics", "Focus", "Contact"];
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -180,8 +199,18 @@ function App() {
           </div>
         </section>
 
+        <section className="logistics-section section-wrap" id="logistics">
+          <Reveal><div className="section-kicker">04 / LOGISTICS PLATFORM</div><div className="section-heading"><h2>Connected customer operations<span className="accent">.</span></h2><p>Customer management, billing and support workflows built around the needs of a B2B logistics platform.</p></div></Reveal>
+          <div className="logistics-grid">
+            {logisticsModules.map((module, i) => {
+              const Icon = module.icon;
+              return <Reveal key={module.title} delay={i * 0.08}><article className="logistics-card"><div className="logistics-card-top"><span className="skill-icon"><Icon size={19} /></span><span className="card-index">0{i + 1}</span></div><h3>{module.title}</h3><ul>{module.items.map(item => <li key={item}>{item}</li>)}</ul></article></Reveal>;
+            })}
+          </div>
+        </section>
+
         <section className="focus-section section-wrap" id="focus">
-          <Reveal><div className="section-kicker">04 / WHAT I BRING</div><div className="section-heading"><h2>Beyond the framework<span className="accent">.</span></h2><p>Engineering is more than writing code. It's understanding how the whole system works.</p></div></Reveal>
+          <Reveal><div className="section-kicker">05 / WHAT I BRING</div><div className="section-heading"><h2>Beyond the framework<span className="accent">.</span></h2><p>Engineering is more than writing code. It's understanding how the whole system works.</p></div></Reveal>
           <div className="capability-grid">
             {capabilities.map(([title, desc], i) => <Reveal key={title} delay={i * 0.08}><article className="capability-card"><span className="cap-number">0{i + 1}</span><h3>{title}</h3><p>{desc}</p></article></Reveal>)}
           </div>
@@ -189,7 +218,7 @@ function App() {
         </section>
 
         <section className="contact-section section-wrap" id="contact">
-          <Reveal><div className="section-kicker">05 / NEXT STEP</div><div className="contact-panel"><div className="contact-orb" /><div className="contact-content"><span className="contact-label"><Sparkles size={14} /> HAVE A PROJECT OR ROLE IN MIND?</span><h2>Let's build<br /><span className="gradient-text">something useful.</span></h2><p>For backend engineering, Laravel development, API integrations or full-stack opportunities, I'd be glad to connect.</p><a className="button button-primary" href={`mailto:${profile.email}`}>Start a conversation <ArrowUpRight size={16} /></a></div><div className="contact-details"><a href={`mailto:${profile.email}`}><Mail size={17} /><span>{profile.email}</span><ArrowUpRight size={14} /></a><a href={`tel:${profile.phone.replaceAll(" ", "")}`}><Phone size={17} /><span>{profile.phone}</span><ArrowUpRight size={14} /></a><a href={profile.linkedin} target="_blank" rel="noreferrer"><Linkedin size={17} /><span>LinkedIn profile</span><ArrowUpRight size={14} /></a><div className="contact-location"><MapPin size={17} /><span>{profile.location}</span></div></div></div></Reveal>
+          <Reveal><div className="section-kicker">06 / NEXT STEP</div><div className="contact-panel"><div className="contact-orb" /><div className="contact-content"><span className="contact-label"><Sparkles size={14} /> HAVE A PROJECT OR ROLE IN MIND?</span><h2>Let's build<br /><span className="gradient-text">something useful.</span></h2><p>For backend engineering, Laravel development, API integrations or full-stack opportunities, I'd be glad to connect.</p><a className="button button-primary" href={`mailto:${profile.email}`}>Start a conversation <ArrowUpRight size={16} /></a></div><div className="contact-details"><a href={`mailto:${profile.email}`}><Mail size={17} /><span>{profile.email}</span><ArrowUpRight size={14} /></a><a href={`tel:${profile.phone.replaceAll(" ", "")}`}><Phone size={17} /><span>{profile.phone}</span><ArrowUpRight size={14} /></a><a href={profile.linkedin} target="_blank" rel="noreferrer"><Linkedin size={17} /><span>LinkedIn profile</span><ArrowUpRight size={14} /></a><div className="contact-location"><MapPin size={17} /><span>{profile.location}</span></div></div></div></Reveal>
         </section>
       </main>
 
